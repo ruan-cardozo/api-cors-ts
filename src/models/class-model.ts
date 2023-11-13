@@ -20,3 +20,5 @@ const Class = dbConnection.define(
     freezeTableName: true,
   }
 )
+
+export { Class };
