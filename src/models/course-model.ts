@@ -1,5 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { dbConnection } from '../config/mariadb-connection';
+import { Teacher } from './teacher-model';
+import { Class } from './class-model';
 
 const Course = dbConnection.define(
   'curso',
@@ -24,6 +26,20 @@ const Course = dbConnection.define(
     timestamps: false,
     freezeTableName: true,
   }
-)
+);
 
 export { Course };
+
+Course.belongsTo(Teacher, {
+  foreignKey: 'matr_professor',
+  as: 'professor',
+  constraints: true,
+})
+
+Course.belongsTo(Class, {
+  foreignKey: 'id_turma',
+  as: 'turma',
+  constraints: true,
+})
+
+
