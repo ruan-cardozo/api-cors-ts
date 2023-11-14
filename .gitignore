@@ -39,7 +39,6 @@ dist/**/*
 
 # ignore yarn.lock
 yarn.lock
-
 node_modules
 out
 dist
