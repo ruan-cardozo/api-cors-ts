@@ -1,12 +1,14 @@
-import express from 'express'
-import cors from 'cors'
-import dotenv from 'dotenv'
-import { dbConnection } from './src/config/mariadb-connection'
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import { dbConnection } from './src/config/mariadb-connection';
+import {router as ClassController}  from './src/routes/class-routes';
 
 const server = express()
-server.use(express.json())
-server.use(cors())
 dotenv.config()
+server.use(express.json())
+server.use(cors());
+server.use('/api',ClassController)
 
 try {
   const port = process.env.SERVER_PORT
@@ -18,9 +20,10 @@ try {
 }
 
 try {
-    dbConnection.authenticate();
-    console.log("Conectado ao banco de dados!");
-    
+  dbConnection.authenticate()
+  console.log('Conectado ao banco de dados!')
 } catch (error) {
-    console.error("Ocorreu um erro ao se conectar com o banco de dados", error);
+  console.error('Ocorreu um erro ao se conectar com o banco de dados', error)
 }
+
+export { server };
