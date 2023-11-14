@@ -1,14 +1,16 @@
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import { dbConnection } from './src/config/mariadb-connection';
-import {router as ClassController}  from './src/routes/class-routes';
+import express from 'express'
+import cors from 'cors'
+import dotenv from 'dotenv'
+import { dbConnection } from './src/config/mariadb-connection'
+import { router as ClassController } from './src/routes/class-routes'
+import { router as CourseController } from './src/routes/course-routes'
+import { router as TeacherController } from './src/routes/teacher-routes'
 
 const server = express()
 dotenv.config()
 server.use(express.json())
-server.use(cors());
-server.use('/api',ClassController)
+server.use(cors())
+server.use('/api', ClassController, CourseController, TeacherController)
 
 try {
   const port = process.env.SERVER_PORT
@@ -26,4 +28,4 @@ try {
   console.error('Ocorreu um erro ao se conectar com o banco de dados', error)
 }
 
-export { server };
+export { server }
